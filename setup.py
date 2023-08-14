@@ -9,14 +9,13 @@ import sys
 # install('gitpython')
 
 import setuptools
-import git
+# import git
 
-repo = git.Repo(search_parent_directories=True)
-date=datetime.datetime.utcnow()
-
-with open("README.md", "r") as fh:
-  long_description = fh.read() + f'\n git version: {repo.head.object.hexsha}' + \
-  f'\n date: {date}'
+# repo = git.Repo(search_parent_directories=True)
+# date=datetime.datetime.utcnow()
+# with open("README.md", "r") as fh:
+#   long_description = fh.read() + f'\n git version: {repo.head.object.hexsha}' + \
+#   f'\n date: {date}'
 
 with open('VERSION') as fs:
     version = fs.readline().strip()
