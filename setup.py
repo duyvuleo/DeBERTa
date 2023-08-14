@@ -24,6 +24,7 @@ with open('VERSION') as fs:
 with open('requirements.txt') as fs:
     requirements = [l.strip() for l in fs if not l.strip().startswith('#')]
 
+extras = {}
 extras["docs"] = ["recommonmark", "sphinx", "sphinx-markdown-tables", "sphinx-rtd-theme"]
 
 setuptools.setup(
