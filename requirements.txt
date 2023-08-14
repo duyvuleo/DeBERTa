@@ -4,12 +4,13 @@ numpy
 pytest
 regex
 scipy
-sklearn
+scikit-learn
 tqdm
 ujson
 seqeval
 psutil
 sentencepiece
 #GitPython
-torch==
+1.13.1+cu116
 #torchvision
+transformers==4.30.2
