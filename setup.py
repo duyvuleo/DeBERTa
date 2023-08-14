@@ -35,7 +35,7 @@ setuptools.setup(
     description="Decoding enhanced BERT with Disentangled Attention",
     keywords="NLP deep learning transformer pytorch Attention BERT RoBERTa DeBERTa",
     license="MIT",
-    long_description=long_description,
+    long_description='DeBERTa codebase',
     long_description_content_type="text/markdown",
     url="https://github.com/microsoft/DeBERTa",
     packages=setuptools.find_packages(exclude=['__pycache__']),
