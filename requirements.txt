@@ -11,6 +11,6 @@ seqeval
 psutil
 sentencepiece
 #GitPython
-torch==1.13.1+cu116
+torch==1.13.1
 #torchvision
 transformers==4.30.2
