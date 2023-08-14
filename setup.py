@@ -2,11 +2,11 @@ import subprocess
 import datetime
 import sys
 
-def install(package):
-  subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-install('setuptools')
-install('gitpython')
+# def install(package):
+#   subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+#
+# install('setuptools')
+# install('gitpython')
 
 import setuptools
 import git
@@ -25,7 +25,6 @@ with open('VERSION') as fs:
 with open('requirements.txt') as fs:
     requirements = [l.strip() for l in fs if not l.strip().startswith('#')]
 
-extras = {}
 extras["docs"] = ["recommonmark", "sphinx", "sphinx-markdown-tables", "sphinx-rtd-theme"]
 
 setuptools.setup(
