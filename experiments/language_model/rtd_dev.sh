@@ -21,9 +21,9 @@ function setup_data(){
 
   mkdir -p $data_dir
 	if [[ ! -e  $data_dir/spm_${data_name_prefix}_${max_seq_length}_train.txt ]]; then
-	  python ./prepare_data.py -i ${cache_dir}/${data_name_prefix}.train.tokens -o $data_dir/spm_${data_name_prefix}_${max_seq_length}_train.txt --max_seq_length $max_seq_length
-		python ./prepare_data.py -i ${cache_dir}/${data_name_prefix}.valid.tokens -o $data_dir/spm_${data_name_prefix}_${max_seq_length}_valid.txt --max_seq_length $max_seq_length
-		python ./prepare_data.py -i ${cache_dir}/${data_name_prefix}.test.tokens -o $data_dir/spm_${data_name_prefix}_${max_seq_length}_test.txt --max_seq_length $max_seq_length
+	  python ./prepare_data.py -i ${cache_dir}/${data_name_prefix}.train.tokens -o $data_dir/train.txt --max_seq_length $max_seq_length
+		python ./prepare_data.py -i ${cache_dir}/${data_name_prefix}.valid.tokens -o $data_dir/valid.txt --max_seq_length $max_seq_length
+		python ./prepare_data.py -i ${cache_dir}/${data_name_prefix}.test.tokens -o $data_dir/test.txt --max_seq_length $max_seq_length
 	fi
 }
 
