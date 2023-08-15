@@ -20,7 +20,7 @@ function setup_data(){
 	fi
 
   mkdir -p $data_dir
-	if [[ ! -e  $data_dir/spm_${data_name_prefix}_${max_seq_length}_train.txt ]]; then
+	if [[ ! -e  $data_dir/train.txt ]]; then
 	  python ./prepare_data.py -i ${cache_dir}/${data_name_prefix}.train.tokens -o $data_dir/train.txt --max_seq_length $max_seq_length
 		python ./prepare_data.py -i ${cache_dir}/${data_name_prefix}.valid.tokens -o $data_dir/valid.txt --max_seq_length $max_seq_length
 		python ./prepare_data.py -i ${cache_dir}/${data_name_prefix}.test.tokens -o $data_dir/test.txt --max_seq_length $max_seq_length
