@@ -3,15 +3,16 @@ SCRIPT=$(readlink -f "$0")
 SCRIPT_DIR=$(dirname "$SCRIPT")
 cd $SCRIPT_DIR
 
-# sh ./experiments/language_model/rtd_dev.sh deberta-v3-xsmall-continue /mnt/shared/vchoang/works/projects/oda/text2sql/code/DeBERTa/exp/data/wikitext-103 512 wiki spm_deberta-v3-base /mnt/shared/vchoang/works/projects/oda/text2sql/code/DeBERTa/exp/models/deberta-v3-xsmall-continue-wikitext103 /mnt/shared/vchoang/works/projects/oda/text2sql/code/DeBERTa/exp/checkpoints/deberta-v3-xsmall/pytorch_model.generator.bin /mnt/shared/vchoang/works/projects/oda/text2sql/code/DeBERTa/exp/checkpoints/deberta-v3-xsmall/pytorch_model.bin
+# sh ./experiments/language_model/rtd_dev.sh deberta-v3-xsmall-continue /mnt/shared/vchoang/works/projects/oda/text2sql/code/DeBERTa/exp/data/wikitext-103 512 wiki spm_deberta-v3-base /mnt/shared/vchoang/works/projects/oda/text2sql/code/DeBERTa/exp/models/deberta-v3-xsmall-continue-wikitext103 256 /mnt/shared/vchoang/works/projects/oda/text2sql/code/DeBERTa/exp/checkpoints/deberta-v3-xsmall/pytorch_model.generator.bin /mnt/shared/vchoang/works/projects/oda/text2sql/code/DeBERTa/exp/checkpoints/deberta-v3-xsmall/pytorch_model.bin
 
 cache_dir=$2
 max_seq_length=$3
 data_name_prefix=$4
 data_dir=${cache_dir}/spm_${data_name_prefix}_$max_seq_length
 spm_reuse=$5
-generator_ckpt=$7
-discriminator_ckpt=$8
+train_batch_size=$7
+generator_ckpt=$8
+discriminator_ckpt=$9
 
 function setup_data(){
 	mkdir -p $cache_dir
@@ -40,7 +41,7 @@ case ${init,,} in
 	--warmup 10000 \
 	--num_training_steps 100000 \
 	--learning_rate 5e-5 \
-	--train_batch_size 256 \
+	--train_batch_size ${train_batch_size} \
 	--init_generator ${generator_ckpt} \
 	--init_discriminator ${discriminator_ckpt} \
 	--decoupled_training True \
@@ -51,7 +52,7 @@ case ${init,,} in
 	--model_config rtd_xsmall.json \
 	--warmup 10000 \
 	--learning_rate 3e-4 \
-	--train_batch_size 64 \
+	--train_batch_size ${train_batch_size} \
 	--decoupled_training True \
 	--fp16 True "
 		;;
@@ -60,7 +61,7 @@ case ${init,,} in
 	--model_config rtd_small.json \
 	--warmup 10000 \
 	--learning_rate 1e-4 \
-	--train_batch_size 256 \
+	--train_batch_size ${train_batch_size} \
 	--decoupled_training True \
 	--fp16 True "
 		;;
@@ -69,7 +70,7 @@ case ${init,,} in
 	--model_config rtd_base.json \
 	--warmup 10000 \
 	--learning_rate 1e-4 \
-	--train_batch_size 256 \
+	--train_batch_size ${train_batch_size} \
 	--decoupled_training True \
 	--fp16 True "
 		;;
@@ -78,7 +79,7 @@ case ${init,,} in
 	--model_config rtd_large.json \
 	--warmup 10000 \
 	--learning_rate 1e-4 \
-	--train_batch_size 256 \
+	--train_batch_size ${train_batch_size} \
 	--decoupled_training True \
 	--fp16 True "
 		;;
