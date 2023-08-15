@@ -14,3 +14,4 @@ psutil
 sentencepiece
 torch==1.13.1
 transformers==4.30.2
+six

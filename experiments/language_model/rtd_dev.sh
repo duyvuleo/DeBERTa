@@ -3,24 +3,26 @@ SCRIPT=$(readlink -f "$0")
 SCRIPT_DIR=$(dirname "$SCRIPT")
 cd $SCRIPT_DIR
 
+# sh ./experiments/language_model/rtd_dev.sh deberta-v3-xsmall-continue /mnt/shared/vchoang/works/projects/oda/text2sql/code/DeBERTa/exp/data/wikitext-103 512 wikitext-103 spm_deberta-v3-base /mnt/shared/vchoang/works/projects/oda/text2sql/code/DeBERTa/exp/models/deberta-v3-xsmall-continue-wikitext103 /mnt/shared/vchoang/works/projects/oda/text2sql/code/DeBERTa/exp/checkpoints/deberta-v3-xsmall/pytorch_model.generator.bin /mnt/shared/vchoang/works/projects/oda/text2sql/code/DeBERTa/exp/checkpoints/deberta-v3-xsmall/pytorch_model.bin
+
 cache_dir=$2
 max_seq_length=$3
-data_name_prefix=$5
-data_dir=$4/spm_${data_name_prefix}_$max_seq_length
-spm_reuse=$6
+data_name_prefix=$4
+data_dir=${cache_dir}/spm_${data_name_prefix}_$max_seq_length
+spm_reuse=$5
 generator_ckpt=$7
 discriminator_ckpt=$8
 
 function setup_data(){
 	mkdir -p $cache_dir
-	if [ "${spm_reuse}" == 'spm_deberta-v3-base']; then
+	if [[ "${spm_reuse}" == "spm_deberta-v3-base" ]]; then
 		wget -q https://huggingface.co/microsoft/deberta-v3-base/resolve/main/spm.model -O $cache_dir/spm.model
 	fi
 
 	if [[ ! -e  $data_dir/test.txt ]]; then
-		python ./prepare_data.py -i $3/${data_name_prefix}.train.tokens -o $data_dir/spm_${data_name_prefix}_${max_seq_length}_train.txt --max_seq_length $max_seq_length
-		python ./prepare_data.py -i $3/${data_name_prefix}.valid.tokens -o $data_dir/spm_${data_name_prefix}_${max_seq_length}_valid.txt --max_seq_length $max_seq_length
-		python ./prepare_data.py -i $3/${data_name_prefix}.test.tokens -o $data_dir/spm_${data_name_prefix}_${max_seq_length}_test.txt --max_seq_length $max_seq_length
+		python ./prepare_data.py -i ${cache_dir}/${data_name_prefix}.train.tokens -o $data_dir/spm_${data_name_prefix}_${max_seq_length}_train.txt --max_seq_length $max_seq_length
+		python ./prepare_data.py -i ${cache_dir}/${data_name_prefix}.valid.tokens -o $data_dir/spm_${data_name_prefix}_${max_seq_length}_valid.txt --max_seq_length $max_seq_length
+		python ./prepare_data.py -i ${cache_dir}/${data_name_prefix}.test.tokens -o $data_dir/spm_${data_name_prefix}_${max_seq_length}_test.txt --max_seq_length $max_seq_length
 	fi
 }
 
